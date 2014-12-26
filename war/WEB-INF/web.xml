@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee 
+http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+
+
+	<servlet>
+		<servlet-name>registerUser</servlet-name>
+		<servlet-class>com.servlet.RegisterUser</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>registerUser</servlet-name>
+		<url-pattern>/registerUser</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>ReturnServlet</servlet-name>
+		<servlet-class>com.servlet.ReturnServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ReturnServlet</servlet-name>
+		<url-pattern>/returnservlet</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>FollowServlet</servlet-name>
+		<servlet-class>com.servlet.FollowServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>FollowServlet</servlet-name>
+		<url-pattern>/followservlet</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>FavoriteServlet</servlet-name>
+		<servlet-class>com.servlet.FavoriteServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>FavoriteServlet</servlet-name>
+		<url-pattern>/favoriteservlet</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>RetweetServlet</servlet-name>
+		<servlet-class>com.servlet.RetweetServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>RetweetServlet</servlet-name>
+		<url-pattern>/retweetservlet</url-pattern>
+	</servlet-mapping>
+	
+	<welcome-file-list>
+	    <welcome-file>home.jsp</welcome-file>
+	</welcome-file-list>
+</web-app>
