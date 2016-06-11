@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cronentries>
+	<cron>
+		<url>/cron/keepalive</url>
+		<description>Keep the app loaded</description>
+		<schedule>every 10 minutes</schedule>
+	</cron>
+	<cron>
+		<url>/cron/followjob</url>
+		<description>Run follow job</description>
+		<schedule>every 15 minutes</schedule>
+	</cron>
+	<cron>
+		<url>/cron/favoritejob</url>
+		<description>Run favorite job</description>
+		<schedule>every 15 minutes</schedule>
+	</cron>
+	<cron>
+		<url>/cron/retweetjob</url>
+		<description>Run follow job</description>
+		<schedule>every 15 minutes</schedule>
+	</cron>
+	<cron>
+		<url>/cron/autofavorite</url>
+		<description>Run autofavorite job</description>
+		<schedule>every 2 hours</schedule>
+	</cron>
+</cronentries>

@@ -12,6 +12,7 @@ import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
 import twitter4j.auth.AccessToken;
 
+import com.fromdev.automation.util.StringUtil;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
@@ -36,7 +37,7 @@ public class FavoriteServlet extends HttpServlet {
 			//twitter.setOAuthConsumer(User.getConsumerKey(entity),User.getConsumerSecret(entity));
 		    twitter.setOAuthAccessToken(new AccessToken(User.getToken(entity),User.getTokenSecret(entity)));
 			String tweetId = tweeturl.substring(tweeturl.lastIndexOf("/")+1);
-			System.out.println(tweetId);
+			System.out.println("1 - " + tweetId);
 		    twitter.createFavorite(Long.valueOf(tweetId));
 			
 			res.sendRedirect("home.jsp?message="+tweetId+"%20is%20marked%20as%20favorite");
@@ -44,7 +45,7 @@ public class FavoriteServlet extends HttpServlet {
 			res.sendRedirect("home.jsp?message=Can't find the tweet");
 		} catch (TwitterException e) {
 			String error = e.getErrorMessage();
-			System.out.println("#$#$#"+e.getMessage()+"#$#$#");
+			System.out.println("#$#$# TE"+StringUtil.getStackTrace(e)+"#$#$#");
 			if(error ==null){
 				if(e.getMessage().indexOf("\"errors\":\"") !=-1){
 					int startIndex = e.getMessage().indexOf("\"errors\":\"") + 10;

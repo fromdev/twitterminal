@@ -2,7 +2,7 @@
 <%@ page import="com.google.appengine.api.datastore.Query.SortDirection" %>
 <%@ page import = "com.google.appengine.api.datastore.*" %>
 <%@ page import = "java.util.List" %>
-<%@ page import = "com.servlet.User" %>
+<%@ page import = "com.servlet.*" %>
 <!DOCTYPE html>
 <style type="text/css">
 		#footer {width:100%;height:80px;position:absolute;bottom:0;	left:0;}
@@ -28,6 +28,8 @@
 				 --><li><a href="follow.jsp" target="_self">Follow</a></li>
 				<li><a href="favorite.jsp" target="_self">Favorite</a></li>
 				<li><a href="retweet.jsp" target="_self">Retweet</a></li>
+				<li><a href="addJob.jsp" target="_self">Add Job</a></li>
+				<li><a href="crons.jsp" target="_self">Crons</a></li>
             </ul>
         </div>
     </div>
@@ -78,11 +80,56 @@
      </tbody>
 </table>
 <br/><br/>
+<h2>List of Jobs</h2>
+<br/>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Action</th>
+      <!--       <th>Consumer key</th>
+            <th>Consumer Secret</th>
+       -->      <th>Target</th>
+            <th>Count</th>
+            <th>Manage</th>
+        </tr>
+    </thead>
+    <tbody>
+    
+    <%
+    Query q2 = new Query("Job");
+	PreparedQuery pq2 = datastore.prepare(q2);
+	List<Entity> entities2 = pq2.asList(FetchOptions.Builder.withLimit(20));
+	for(Entity entity : entities2)
+		{
+		
+		
+    %>
+        <tr>
+            <td><%= Job.getName(entity) %></td>
+            <td><%= Job.getAction(entity) %></td>
+          <%--   <td><%= User.getConsumerKey(entity) %></td>
+            <td><%= User.getConsumerSecret(entity) %></td>
+           --%>  <td><%= Job.getTarget(entity) %></td>
+            <td><%= Job.getCount(entity) %></td>
+            <td><a href="deletejob?target=<%= Job.getTarget(entity) %>" target="_self">Delete</a></td>
+        </tr>
+    <%
+    	}
+    %>
+    
+     </tbody>
+</table>
+<br/><br/>
 <div class="form-group">
 			<div class="col-xs-10">
 				<button type="submit" onclick="window.location.href='/registerUser'" class="btn btn-primary">Register a New User</button>
 			</div>
 		</div>    
+<br/><br/>
+<b>User Cache Has Something</b> :<%= StaticCache.userCacheHasSomething() %>
+<b>Job Cache Has Something</b> : <%= StaticCache.jobCacheHasSomething()%>
+
   <footer id="footer">  <p>Copyright 2013 FromDev.Contact information: <a href="mailto:sachin@fromdev.com">  sachin@fromdev.com</a>.</p>
 </footer>
 

@@ -15,6 +15,7 @@ import twitter4j.auth.AccessToken;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 
@@ -27,20 +28,16 @@ public class RetweetServlet extends HttpServlet {
 			String tweeturl = req.getParameter("tweeturl");
 			String authenticateduser = req.getParameter("authenticateduser");
 			
-			DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-			Key key = KeyFactory.createKey("User",authenticateduser);		   
-			Entity entity = datastore.get(key);
-			
-			Twitter twitter = new TwitterFactory().getInstance();
+
 			//twitter.setOAuthConsumer(User.getConsumerKey(entity),User.getConsumerSecret(entity));
-		    twitter.setOAuthAccessToken(new AccessToken(User.getToken(entity),User.getTokenSecret(entity)));
 			String tweetId = tweeturl.substring(tweeturl.lastIndexOf("/")+1);
 			System.out.println(tweetId);
-		    twitter.retweetStatus(Long.valueOf(tweetId));
+			
+			TwitterUtil.retweet(authenticateduser, tweetId);
 			
 			res.sendRedirect("home.jsp?message="+tweetId+"%20is%20marked%20as%20retweet");
 		} catch(NumberFormatException e){
-			res.sendRedirect("home.jsp?message=Can't find the tweet");
+			res.sendRedirect("home.jsp?message=Can't find the tweet " + e.getMessage());
 		} catch (TwitterException e) {
 			String error = e.getErrorMessage();
 			System.out.println("#$#$#"+e.getMessage()+"#$#$#");
@@ -59,4 +56,5 @@ public class RetweetServlet extends HttpServlet {
 			res.sendRedirect("home.jsp?message=There was a problem with your network connection.");			
 		}
 	}
+
 }
